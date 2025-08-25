@@ -1,203 +1,9 @@
-<!-- <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados da Mega-Sena</title>
-    <style>
-        /* Mantendo seus estilos originais */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #FFFFFF;
-            color: #2E8B57;
-           /* line-height: 1.6;*/
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        h1 {
-            text-align: center;
-            color: #006400;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #F0F8FF;
-        }
-        th, td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #4CAF50;
-			font-size: small;
-        }
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        tr:nth-child(even) {
-            background-color: #F9F9F9;
-        }
-        tr:nth-child(odd) {
-            background-color: #FFFFFF;
-        }
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            padding: 20px;
-            margin-bottom: 40px;
-        }
-        .button {
-            background-color: #32CD32;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-            display: inline-block;
-            border-radius: 5px;
-            text-align: center;
-            transition: background-color 0.3s ease;
-            width: auto;
-        }
-        .button:hover {
-            background-color: #28a745;
-        }
-        p{ text-align: center;}
-		
-		.completed{
-			color: red;
-			text-align: center;
-		}
-    </style>
-</head>
-<body>
-<div class="container">
-    <h1>Resultados da Mega-Sena</h1>
-    
-    <div class="centralizado">
-        <p>Resultados de todos os sorteios da Mega Sena</p>
-    </div>
-
-    <div class="filters-container">
-        <button class="button" onclick="fetchAllMegaSenaResults()">Carregar Resultados</button>
-    </div>
-    
-    <div id="loadingMessage" class="loading" style="display: none;">Carregando resultados...</div>
-	<hr />
-    <div id="completedMessage" class="completed" style="display: none;">Carregamento concluído!</div>
-    
-    <table id="megaSenaResults">
-        <thead>
-            <tr>
-                <th>Concurso</th>
-                <th>Data do Sorteio</th>
-                <th>Dezenas Sorteadas</th>
-                <th>Dezenas Sorteadas (+1)</th>
-                <th>Dezenas Sorteadas (+2)</th>
-                <th>Dezenas Sorteadas (-1)</th>
-                <th>Dezenas Sorteadas (-2)</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
-</div>
-
-<footer>Feito por: <i>Márcio Fernando Maia - Todos os direitos reservados - 2025</i></footer>
-
-<script>
-let allResults = [];
-let originalResults = [];
-
-async function fetchAllMegaSenaResults() {
-    const baseUrl = 'https://loteriascaixa-api.herokuapp.com/api/megasena';
-    const loadingMessage = document.getElementById('loadingMessage');
-    const completedMessage = document.getElementById('completedMessage');
-    const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
-
-    loadingMessage.style.display = 'block';
-    completedMessage.style.display = 'none';
-    tableBody.innerHTML = '';
-    allResults = [];
-
-    try {
-        const response = await fetch(baseUrl);
-        if (!response.ok) throw new Error('Erro ao acessar a API.');
-
-        const data = await response.json();
-
-        if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0].dezenas)) {
-            allResults = data.map(item => ({
-                concurso: item.concurso,
-                data: item.data,
-                dezenas: item.dezenas,
-                dezenasOrdemSorteio: item.dezenasOrdemSorteio
-            }));
-
-            originalResults = JSON.parse(JSON.stringify(allResults));
-            renderResults(allResults); // Aplica os resultados ao carregar
-        } else {
-            throw new Error('Formato de dados inválido ou propriedade "dezenas" não encontrada.');
-        }
-    } catch (error) {
-        console.error(error);
-        alert('Erro ao buscar os resultados. Tente novamente.');
-    } finally {
-        loadingMessage.style.display = 'none';
-        completedMessage.style.display = 'block';
-    }
-}
-
-function adjustDezenas(dezenas, adjustment) {
-    return dezenas.map(num => {
-        let adjustedNum = parseInt(num) + adjustment;
-        if (adjustedNum < 1) adjustedNum = 1;
-        if (adjustedNum > 60) adjustedNum = 60;
-        return adjustedNum.toString().padStart(2, '0');
-    });
-}
-
-function renderResults(results) {
-    const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
-    tableBody.innerHTML = '';
-
-    if (results.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="7" class="no-results">Nenhum resultado encontrado.</td></tr>';
-        return;
-    }
-
-    results.forEach(result => {
-        const row = tableBody.insertRow();
-        const dezenasPlus1 = adjustDezenas(result.dezenas, 1);
-        const dezenasPlus2 = adjustDezenas(result.dezenas, 2);
-        const dezenasMinus1 = adjustDezenas(result.dezenas, -1);
-        const dezenasMinus2 = adjustDezenas(result.dezenas, -2);
-
-        row.innerHTML = `
-            <td>${result.concurso}</td>
-            <td>${result.data}</td>
-            <td>${result.dezenas.join(' - ')}</td>
-            <td>${dezenasPlus1.join(' - ')}</td>
-            <td>${dezenasPlus2.join(' - ')}</td>
-            <td>${dezenasMinus1.join(' - ')}</td>
-            <td>${dezenasMinus2.join(' - ')}</td>
-        `;
-    });
-}
-</script>
-
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados da Mega-Sena</title>
+    <title>Resultados Alterados da Mega-Sena</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -267,17 +73,17 @@ function renderResults(results) {
 </head>
 <body>
 <div class="container">
-    <h1>Resultados da Mega-Sena</h1>
+    <h1>Resultados Alterados da Mega-Sena</h1>
     
     <div class="centralizado">
-        <p>Resultados de todos os sorteios da Mega Sena</p>
+        <p>Resultados Alterados de todos os sorteios da Mega Sena</p>
     </div>
 
     <div class="filters-container">
-        <button class="button" onclick="fetchAllMegaSenaResults()">Carregar Resultados</button>
+        <button class="button" onclick="fetchAllMegaSenaResults()">Carregar Resultados e Alterar</button>
     </div>
 
-    <div id="loadingMessage" class="loading" style="display: none;">Carregando resultados...</div>
+    <div id="loadingMessage" class="loading" style="display: none;">Carregando Resultados e Alterando...</div>
     <hr />
     <div id="completedMessage" class="completed" style="display: none;">Carregamento concluído!</div>
 
@@ -345,7 +151,7 @@ async function fetchAllMegaSenaResults() {
         }
     } catch (error) {
         console.error(error);
-        alert('Erro ao buscar os resultados.');
+        alert('Erro ao buscar os Resultados Alterados.');
     } finally {
         loadingMessage.style.display = 'none';
         completedMessage.style.display = 'block';
@@ -394,7 +200,7 @@ function downloadJSON() {
 }
 
 function downloadTXT() {
-    let txtContent = "Resultados da Mega-Sena:\n\n";
+    let txtContent = "Resultados Alterados da Mega-Sena:\n\n";
     allResults.forEach(result => {
         txtContent += `Concurso: ${result.concurso} | Data: ${result.data} | Dezenas: ${result.dezenas.join('-')} | (+1): ${result.dezenasPlus1.join('-')} | (+2): ${result.dezenasPlus2.join('-')} | (-1): ${result.dezenasMinus1.join('-')} | (-2): ${result.dezenasMinus2.join('-')}\n`;
     });
@@ -402,11 +208,11 @@ function downloadTXT() {
 }
 
 function downloadXML() {
-    let xmlContent = '<?xml version="1.0" encoding="UTF-8"?><resultados>';
+    let xmlContent = '<?xml version="1.0" encoding="UTF-8"?><Resultados Alterados>';
     allResults.forEach(result => {
         xmlContent += `<concurso><numero>${result.concurso}</numero><data>${result.data}</data></concurso>`;
     });
-    xmlContent += '</resultados>';
+    xmlContent += '</Resultados Alterados>';
     downloadFile(xmlContent, 'mega_sena.xml', 'text/xml');
 }
 
