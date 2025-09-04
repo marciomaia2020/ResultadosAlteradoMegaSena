@@ -5,103 +5,351 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados Alterados da Mega-Sena</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #FFFFFF;
-            color: #2E8B57;
+            margin: 10px;
+            background-color: #ffffff;
+            color: #1b9a67;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
+        
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 350px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        
         h1 {
             text-align: center;
-            color: #006400;
+            color: #0f573a;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
         }
+        
+        .centralizado {
+            text-align: center;
+            color: #178257;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: #F0F8FF;
+            background-color: #e9fbf4;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            display: block;
+            white-space: nowrap;
         }
+        
+        thead, tbody {
+            display: table;
+            width: 100%;
+        }
+        
         th, td {
-            padding: 10px;
+            padding: 8px 4px;
             text-align: center;
-            border: 1px solid #4CAF50;
-            font-size: small;
+            border: 1px solid #1b9a67;
+            font-size: 0.8rem;
+            min-width: 80px;
         }
+        
         th {
-            background-color: #4CAF50;
+            background-color: #1b9a67;
             color: white;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
         }
+        
         tr:nth-child(even) {
-            background-color: #F9F9F9;
+            background-color: #d4f7e9;
         }
+        
         tr:nth-child(odd) {
-            background-color: #FFFFFF;
+            background-color: #ffffff;
         }
+        
         .container {
             max-width: 1200px;
             width: 100%;
-            padding: 20px;
+            padding: 10px;
             margin-bottom: 40px;
         }
+        
+        .filters-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
         .button {
-            background-color: #32CD32;
-            color: black;
+            background-color: #26d991;
+            color: #0f573a;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 20px;
             cursor: pointer;
-            font-size: 16px;
-            margin: 10px;
+            font-size: 1rem;
+            margin: 5px;
             display: inline-block;
-            border-radius: 5px;
+            border-radius: 8px;
             text-align: center;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(27, 154, 103, 0.3);
         }
+        
         .button:hover {
-            background-color: #28a745;
+            background-color: #22c383;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(27, 154, 103, 0.4);
         }
+        
+        .button:active {
+            transform: translateY(0);
+        }
+        
         .download-buttons {
             margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
         }
-        .completed {
-            color: red;
+        
+        .loading {
             text-align: center;
+            color: #178257;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 20px;
+            background-color: #e9fbf4;
+            border-radius: 8px;
+            border: 2px solid #1b9a67;
+        }
+        
+        .completed {
+            color: #0f573a;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            padding: 15px;
+            background-color: #a8f0d3;
+            border-radius: 8px;
+            border: 2px solid #1b9a67;
+        }
+        
+        .concurso-info {
+            background-color: #bef4de;
+            border: 1px solid #1b9a67;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin: 10px 0;
+            font-size: 0.85rem;
+            color: #0f573a;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(27, 154, 103, 0.2);
+        }
+        
+        .concurso-info .total-concursos {
+            font-weight: bold;
+            color: #178257;
+        }
+        
+        .concurso-info .ultimo-concurso {
+            margin-top: 5px;
+            font-size: 0.8rem;
+        }
+        
+        .concurso-info .dezenas-ultimo {
+            background-color: #93ecc8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin: 0 2px;
+            font-weight: bold;
+        }
+        
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #26d991, #1b9a67, #26d991);
+            margin: 20px 0;
+            border-radius: 2px;
+        }
+        
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            text-align: center;
+            color: #178257;
+            font-style: italic;
+            font-size: 0.9rem;
+            background-color: #e9fbf4;
+            width: 100%;
+        }
+        
+        /* Responsividade para telas pequenas */
+        @media (max-width: 768px) {
+            body {
+                margin: 5px;
+            }
+            
+            .container {
+                padding: 5px;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+            
+            .logo {
+                width: 120px;
+            }
+            
+            .centralizado {
+                font-size: 0.9rem;
+            }
+            
+            table {
+                font-size: 0.7rem;
+            }
+            
+            th, td {
+                padding: 6px 2px;
+                font-size: 0.7rem;
+                min-width: 60px;
+            }
+            
+            .button {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+                margin: 3px;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-buttons .button {
+                width: 90%;
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2rem;
+            }
+            
+            .logo {
+                width: 100px;
+            }
+            
+            .centralizado {
+                font-size: 0.8rem;
+            }
+            
+            table {
+                font-size: 0.6rem;
+            }
+            
+            th, td {
+                padding: 4px 1px;
+                font-size: 0.6rem;
+                min-width: 50px;
+            }
+            
+            .button {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .concurso-info {
+                font-size: 0.75rem;
+                padding: 6px 8px;
+            }
+            
+            .concurso-info .ultimo-concurso {
+                font-size: 0.7rem;
+            }
+        }
+        
+        /* Scroll horizontal para tabela em telas pequenas */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        @media (max-width: 768px) {
+            .table-container {
+                margin: 0 -10px;
+            }
+            
+            table {
+                display: table;
+                white-space: nowrap;
+                min-width: 600px;
+            }
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>Resultados Alterados da Mega-Sena</h1>
+    <div class="header">
+        <img src="https://i.postimg.cc/VkSZr7z6/megasena.png" alt="Mega-Sena Logo" class="logo">
+        <h1>Resultados Alterados da Mega-Sena</h1>
+    </div>
     
     <div class="centralizado">
         <p>Resultados Alterados de todos os sorteios da Mega Sena</p>
     </div>
 
     <div class="filters-container">
-        <button class="button" onclick="fetchAllMegaSenaResults()">Carregar Resultados e Alterar</button>
+        <button class="button" onclick="fetchAllMegaSenaResults()">Clique para carregar...</button>
     </div>
 
     <div id="loadingMessage" class="loading" style="display: none;">Carregando Resultados e Alterando...</div>
     <hr />
     <div id="completedMessage" class="completed" style="display: none;">Carregamento concluído!</div>
+    <div id="concursoInfo" class="concurso-info" style="display: none;"></div>
 
-    <table id="megaSenaResults">
-        <thead>
-            <tr>
-                <th>Concurso</th>
-                <th>Data do Sorteio</th>
-                <th>Dezenas Sorteadas</th>
-                <th>Dezenas Sorteadas (+1)</th>
-                <th>Dezenas Sorteadas (+2)</th>
-                <th>Dezenas Sorteadas (-1)</th>
-                <th>Dezenas Sorteadas (-2)</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
+    <div class="table-container">
+        <table id="megaSenaResults">
+            <thead>
+                <tr>
+                    <th>Concurso</th>
+                    <th>Data do Sorteio</th>
+                    <th>Dezenas Sorteadas</th>
+                    <th>Dezenas Sorteadas (+1)</th>
+                    <th>Dezenas Sorteadas (+2)</th>
+                    <th>Dezenas Sorteadas (-1)</th>
+                    <th>Dezenas Sorteadas (-2)</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 
     <!-- Botões de Download -->
     <div class="download-buttons">
@@ -146,6 +394,7 @@ async function fetchAllMegaSenaResults() {
             }));
 
             renderResults(allResults);
+            showConcursoInfo(allResults);
         } else {
             throw new Error('Formato de dados inválido.');
         }
@@ -214,6 +463,32 @@ function downloadXML() {
     });
     xmlContent += '</Resultados Alterados>';
     downloadFile(xmlContent, 'mega_sena.xml', 'text/xml');
+}
+
+function showConcursoInfo(results) {
+    const concursoInfo = document.getElementById('concursoInfo');
+    
+    if (results.length > 0) {
+        // Ordena por número do concurso para pegar o primeiro e último
+        const sortedResults = [...results].sort((a, b) => parseInt(a.concurso) - parseInt(b.concurso));
+        const primeiroConcurso = sortedResults[0];
+        const ultimoConcurso = sortedResults[sortedResults.length - 1];
+        
+        const totalConcursos = results.length;
+        
+        concursoInfo.innerHTML = `
+            <div class="total-concursos">
+                ✅ ${totalConcursos} concursos carregados (do ${primeiroConcurso.concurso} ao ${ultimoConcurso.concurso})
+            </div><br />
+            <div class="ultimo-concurso">
+                🎯 Último concurso: <strong>${ultimoConcurso.concurso}</strong> (${ultimoConcurso.data}) 
+                <br /><br />
+                Dezenas: ${ultimoConcurso.dezenas.map(num => `<span class="dezenas-ultimo">${num}</span>`).join(' ')}
+            </div>
+        `;
+        
+        concursoInfo.style.display = 'block';
+    }
 }
 
 function downloadFile(content, fileName, type) {
