@@ -3,25 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados Alterados da Mega-Sena</title>
+    <title>Resultados Alterados da Mega-Sena - Configurações Personalizadas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #1b9a67; /* Verde (Mega-Sena) */
+            --primary-dark: #0f573a;
+            --secondary-color: #26d991;
+            --accent-color: #178257;
+            --background-color: #e9fbf4;
+            --table-header: #1b9a67;
+            --table-border: #26d991;
+            --table-even: #d4f7e9;
+            --table-odd: #ffffff;
+            --text-color: #0f573a;
+            --footer-color: #178257;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 10px;
-            background-color: #ffffff;
-            color: #1b9a67;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
         }
-        
+
         .header {
             display: flex;
             flex-direction: column;
@@ -34,231 +49,451 @@
             height: auto;
             margin-bottom: 15px;
         }
-        
+
         h1 {
             text-align: center;
-            color: #0f573a;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+            color: var(--primary-dark);
+            margin: 10px 0;
+            font-size: 2.2rem;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
-        
-        .centralizado {
-            text-align: center;
-            color: #178257;
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #e9fbf4;
-            font-size: 0.9rem;
-            overflow-x: auto;
-            display: block;
-            white-space: nowrap;
-        }
-        
-        thead, tbody {
-            display: table;
-            width: 100%;
-        }
-        
-        th, td {
-            padding: 8px 4px;
-            text-align: center;
-            border: 1px solid #1b9a67;
-            font-size: 0.8rem;
-            min-width: 80px;
-        }
-        
-        th {
-            background-color: #1b9a67;
-            color: white;
-            font-weight: bold;
-            position: sticky;
-            top: 0;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #d4f7e9;
-        }
-        
-        tr:nth-child(odd) {
-            background-color: #ffffff;
-        }
-        
+
         .container {
             max-width: 1200px;
             width: 100%;
-            padding: 10px;
+            padding: 20px;
             margin-bottom: 40px;
         }
-        
+
+        .centralizado {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+        }
+
+        /* Seção de Controles de Ajustes */
+        .controls-section {
+            background: linear-gradient(135deg, #e9fbf4, #d4f7e9);
+            border: 2px solid #1b9a67;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(27, 154, 103, 0.3);
+        }
+
+        .controls-title {
+            color: #1b9a67;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .control-item {
+            background: white;
+            border: 2px solid #26d991;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .control-item label {
+            display: block;
+            color: #0f573a;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .control-item select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #26d991;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: bold;
+            text-align: center;
+            background: #e9fbf4;
+            color: #0f573a;
+        }
+
+        .control-item select:focus {
+            outline: none;
+            border-color: #1b9a67;
+            box-shadow: 0 0 0 3px rgba(27, 154, 103, 0.2);
+        }
+
         .filters-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin: 20px 0;
+            gap: 10px;
         }
-        
+
         .button {
-            background-color: #26d991;
-            color: #0f573a;
+            background-color: var(--primary-color);
+            color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 12px 24px;
             cursor: pointer;
             font-size: 1rem;
-            margin: 5px;
+            margin: 10px;
             display: inline-block;
             border-radius: 8px;
             text-align: center;
             transition: all 0.3s ease;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(27, 154, 103, 0.3);
+            font-weight: 600;
+            box-shadow: 0 3px 6px rgba(27, 154, 103, 0.3);
         }
-        
+
         .button:hover {
-            background-color: #22c383;
+            background-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(27, 154, 103, 0.4);
+            box-shadow: 0 5px 10px rgba(27, 154, 103, 0.4);
         }
-        
+
         .button:active {
             transform: translateY(0);
         }
-        
+
+        .button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .download-buttons {
-            margin-top: 20px;
+            margin: 30px 0;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
         }
-        
+
+        .completed {
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 15px;
+            background-color: var(--table-even);
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
         .loading {
             text-align: center;
-            color: #178257;
+            margin: 20px 0;
+            color: var(--primary-dark);
             font-size: 1.1rem;
             font-weight: bold;
             padding: 20px;
-            background-color: #e9fbf4;
+            background-color: var(--table-even);
             border-radius: 8px;
-            border: 2px solid #1b9a67;
+            border: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
-        
-        .completed {
-            color: #0f573a;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: bold;
-            padding: 15px;
-            background-color: #a8f0d3;
-            border-radius: 8px;
-            border: 2px solid #1b9a67;
-        }
-        
+
         .concurso-info {
-            background-color: #bef4de;
-            border: 1px solid #1b9a67;
-            border-radius: 6px;
-            padding: 8px 12px;
-            margin: 10px 0;
-            font-size: 0.85rem;
-            color: #0f573a;
+            background-color: var(--table-even);
+            border: 1px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 15px 0;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
             text-align: center;
-            box-shadow: 0 1px 3px rgba(27, 154, 103, 0.2);
+            box-shadow: 0 2px 4px rgba(27, 154, 103, 0.2);
         }
         
         .concurso-info .total-concursos {
             font-weight: bold;
-            color: #178257;
+            color: var(--primary-dark);
         }
         
         .concurso-info .ultimo-concurso {
-            margin-top: 5px;
-            font-size: 0.8rem;
+            margin-top: 8px;
+            font-size: 0.85rem;
         }
         
         .concurso-info .dezenas-ultimo {
-            background-color: #93ecc8;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin: 0 2px;
+            background-color: var(--secondary-color);
+            padding: 3px 8px;
+            border-radius: 6px;
+            margin: 0 3px;
             font-weight: bold;
+            color: var(--primary-dark);
         }
-        
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(27, 154, 103, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #c62828;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .warning-message {
+            background-color: var(--table-even);
+            color: var(--accent-color);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         hr {
-            border: none;
+            border: 0;
             height: 2px;
-            background: linear-gradient(90deg, #26d991, #1b9a67, #26d991);
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color), var(--secondary-color));
             margin: 20px 0;
             border-radius: 2px;
         }
-        
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(27, 154, 103, 0.15);
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid var(--table-border);
+        }
+
+        th {
+            background-color: var(--table-header);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--table-even);
+        }
+
+        tr:nth-child(odd) {
+            background-color: var(--table-odd);
+        }
+
+        tr:hover {
+            background-color: rgba(27, 154, 103, 0.1);
+        }
+
+        .dezena {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            margin: 0 2px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(27, 154, 103, 0.3);
+        }
+
         footer {
             margin-top: auto;
             padding: 20px;
             text-align: center;
-            color: #178257;
-            font-style: italic;
-            font-size: 0.9rem;
-            background-color: #e9fbf4;
+            background-color: var(--primary-color);
+            color: white;
             width: 100%;
+            font-size: 0.9rem;
+            font-weight: 500;
         }
-        
-        /* Responsividade para telas pequenas */
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 5px;
+            cursor: help;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 250px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Estilos da Paginação */
+        .pagination-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .pagination-info {
+            margin-bottom: 15px;
+            font-size: 1rem;
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .page-numbers {
+            display: flex;
+            gap: 5px;
+            margin: 0 10px;
+        }
+
+        .page-numbers .button {
+            min-width: 40px;
+            padding: 8px 12px;
+            margin: 0;
+        }
+
+        .page-numbers .button.active {
+            background-color: var(--primary-dark);
+            transform: none;
+        }
+
+        /* Responsividade */
         @media (max-width: 768px) {
-            body {
-                margin: 5px;
-            }
-            
             .container {
-                padding: 5px;
+                padding: 10px;
             }
-            
+
             h1 {
-                font-size: 1.4rem;
+                font-size: 1.8rem;
             }
-            
+
             .logo {
                 width: 120px;
             }
-            
+
             .centralizado {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
-            
-            table {
-                font-size: 0.7rem;
-            }
-            
-            th, td {
-                padding: 6px 2px;
-                font-size: 0.7rem;
-                min-width: 60px;
-            }
-            
+
             .button {
                 padding: 10px 15px;
                 font-size: 0.9rem;
-                margin: 3px;
             }
-            
-            .download-buttons {
+
+            th, td {
+                padding: 8px;
+                font-size: 0.8rem;
+            }
+
+            .dezena {
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
+                font-size: 0.75rem;
+                margin: 0 1px;
+            }
+
+            .filters-container {
                 flex-direction: column;
                 align-items: center;
             }
+
+            .concurso-info {
+                font-size: 0.8rem;
+                padding: 10px 12px;
+            }
             
-            .download-buttons .button {
-                width: 90%;
-                max-width: 250px;
+            .concurso-info .ultimo-concurso {
+                font-size: 0.75rem;
+            }
+
+            .controls-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
-        
+
         @media (max-width: 480px) {
             h1 {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
             }
             
             .logo {
@@ -266,49 +501,20 @@
             }
             
             .centralizado {
-                font-size: 0.8rem;
-            }
-            
-            table {
-                font-size: 0.6rem;
-            }
-            
-            th, td {
-                padding: 4px 1px;
-                font-size: 0.6rem;
-                min-width: 50px;
-            }
-            
-            .button {
-                padding: 8px 12px;
-                font-size: 0.8rem;
+                font-size: 0.9rem;
             }
             
             .concurso-info {
                 font-size: 0.75rem;
-                padding: 6px 8px;
+                padding: 8px 10px;
             }
             
             .concurso-info .ultimo-concurso {
                 font-size: 0.7rem;
             }
-        }
-        
-        /* Scroll horizontal para tabela em telas pequenas */
-        .table-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        @media (max-width: 768px) {
-            .table-container {
-                margin: 0 -10px;
-            }
-            
-            table {
-                display: table;
-                white-space: nowrap;
-                min-width: 600px;
+
+            .controls-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -321,16 +527,238 @@
     </div>
     
     <div class="centralizado">
-        <p>Resultados Alterados de todos os sorteios da Mega Sena</p>
+        <p>Carrega TODOS os resultados históricos da Mega-Sena com <strong>ajustes personalizáveis</strong></p>
+        <p><small>Configure os valores de soma/subtração que desejar • Números sempre entre 01-60</small></p>
+    </div>
+
+    <!-- Seção de Controles de Ajustes Personalizados -->
+    <div class="controls-section">
+        <div class="controls-title">
+            <i class="fas fa-cogs"></i> Configurações de Ajustes das Dezenas
+        </div>
+        
+        <div class="controls-grid">
+            <div class="control-item">
+                <label>Quantidade de Ajustes:</label>
+                <select id="quantidadeAjustes" onchange="updateAjustes()">
+                    <option value="2">2 Ajustes</option>
+                    <option value="3">3 Ajustes</option>
+                    <option value="4" selected>4 Ajustes</option>
+                    <option value="5">5 Ajustes</option>
+                    <option value="6">6 Ajustes</option>
+                </select>
+            </div>
+            
+            <div class="control-item">
+                <label>Ajuste 1:</label>
+                <select id="ajuste1" onchange="updateTable()">
+                    <option value="-10">-10</option>
+                    <option value="-9">-9</option>
+                    <option value="-8">-8</option>
+                    <option value="-7">-7</option>
+                    <option value="-6">-6</option>
+                    <option value="-5">-5</option>
+                    <option value="-4">-4</option>
+                    <option value="-3">-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1">-1</option>
+                    <option value="0">0</option>
+                    <option value="1" selected>+1</option>
+                    <option value="2">+2</option>
+                    <option value="3">+3</option>
+                    <option value="4">+4</option>
+                    <option value="5">+5</option>
+                    <option value="6">+6</option>
+                    <option value="7">+7</option>
+                    <option value="8">+8</option>
+                    <option value="9">+9</option>
+                    <option value="10">+10</option>
+                </select>
+            </div>
+            
+            <div class="control-item">
+                <label>Ajuste 2:</label>
+                <select id="ajuste2" onchange="updateTable()">
+                    <option value="-10">-10</option>
+                    <option value="-9">-9</option>
+                    <option value="-8">-8</option>
+                    <option value="-7">-7</option>
+                    <option value="-6">-6</option>
+                    <option value="-5">-5</option>
+                    <option value="-4">-4</option>
+                    <option value="-3">-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1">-1</option>
+                    <option value="0">0</option>
+                    <option value="1">+1</option>
+                    <option value="2" selected>+2</option>
+                    <option value="3">+3</option>
+                    <option value="4">+4</option>
+                    <option value="5">+5</option>
+                    <option value="6">+6</option>
+                    <option value="7">+7</option>
+                    <option value="8">+8</option>
+                    <option value="9">+9</option>
+                    <option value="10">+10</option>
+                </select>
+            </div>
+            
+            <div class="control-item">
+                <label>Ajuste 3:</label>
+                <select id="ajuste3" onchange="updateTable()">
+                    <option value="-10">-10</option>
+                    <option value="-9">-9</option>
+                    <option value="-8">-8</option>
+                    <option value="-7">-7</option>
+                    <option value="-6">-6</option>
+                    <option value="-5">-5</option>
+                    <option value="-4">-4</option>
+                    <option value="-3">-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1" selected>-1</option>
+                    <option value="0">0</option>
+                    <option value="1">+1</option>
+                    <option value="2">+2</option>
+                    <option value="3">+3</option>
+                    <option value="4">+4</option>
+                    <option value="5">+5</option>
+                    <option value="6">+6</option>
+                    <option value="7">+7</option>
+                    <option value="8">+8</option>
+                    <option value="9">+9</option>
+                    <option value="10">+10</option>
+                </select>
+            </div>
+            
+            <div class="control-item">
+                <label>Ajuste 4:</label>
+                <select id="ajuste4" onchange="updateTable()">
+                    <option value="-10">-10</option>
+                    <option value="-9">-9</option>
+                    <option value="-8">-8</option>
+                    <option value="-7">-7</option>
+                    <option value="-6">-6</option>
+                    <option value="-5">-5</option>
+                    <option value="-4">-4</option>
+                    <option value="-3">-3</option>
+                    <option value="-2" selected>-2</option>
+                    <option value="-1">-1</option>
+                    <option value="0">0</option>
+                    <option value="1">+1</option>
+                    <option value="2">+2</option>
+                    <option value="3">+3</option>
+                    <option value="4">+4</option>
+                    <option value="5">+5</option>
+                    <option value="6">+6</option>
+                    <option value="7">+7</option>
+                    <option value="8">+8</option>
+                    <option value="9">+9</option>
+                    <option value="10">+10</option>
+                </select>
+            </div>
+            
+            <div class="control-item" id="controleAjuste5" style="display: none;">
+                <label>Ajuste 5:</label>
+                <select id="ajuste5" onchange="updateTable()">
+                    <option value="-10">-10</option>
+                    <option value="-9">-9</option>
+                    <option value="-8">-8</option>
+                    <option value="-7">-7</option>
+                    <option value="-6">-6</option>
+                    <option value="-5">-5</option>
+                    <option value="-4">-4</option>
+                    <option value="-3" selected>-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1">-1</option>
+                    <option value="0">0</option>
+                    <option value="1">+1</option>
+                    <option value="2">+2</option>
+                    <option value="3">+3</option>
+                    <option value="4">+4</option>
+                    <option value="5">+5</option>
+                    <option value="6">+6</option>
+                    <option value="7">+7</option>
+                    <option value="8">+8</option>
+                    <option value="9">+9</option>
+                    <option value="10">+10</option>
+                </select>
+            </div>
+            
+            <div class="control-item" id="controleAjuste6" style="display: none;">
+                <label>Ajuste 6:</label>
+                <select id="ajuste6" onchange="updateTable()">
+                    <option value="-10">-10</option>
+                    <option value="-9">-9</option>
+                    <option value="-8">-8</option>
+                    <option value="-7">-7</option>
+                    <option value="-6">-6</option>
+                    <option value="-5">-5</option>
+                    <option value="-4">-4</option>
+                    <option value="-3">-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1">-1</option>
+                    <option value="0">0</option>
+                    <option value="1">+1</option>
+                    <option value="2">+2</option>
+                    <option value="3" selected>+3</option>
+                    <option value="4">+4</option>
+                    <option value="5">+5</option>
+                    <option value="6">+6</option>
+                    <option value="7">+7</option>
+                    <option value="8">+8</option>
+                    <option value="9">+9</option>
+                    <option value="10">+10</option>
+                </select>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 15px;">
+            <button class="button" onclick="resetarAjustes()">
+                <i class="fas fa-undo"></i> Resetar Padrão
+            </button>
+            <button class="button" onclick="ajustesAleatorios()">
+                <i class="fas fa-dice"></i> Ajustes Aleatórios
+            </button>
+            <button class="button" onclick="presetSequencial()">
+                <i class="fas fa-sort-numeric-up"></i> Preset Sequencial
+            </button>
+        </div>
+        
+        <div style="text-align: center; margin-top: 10px; font-size: 0.8rem; color: var(--primary-dark);">
+            💡 Os números sempre ficarão entre 01 e 60 (limites da Mega-Sena) | 🎯 Configurações aplicadas em tempo real
+        </div>
     </div>
 
     <div class="filters-container">
-        <button class="button" onclick="fetchAllMegaSenaResults()">Clique para carregar...</button>
+        <button class="button" onclick="openHelpModal()">
+            <i class="fas fa-question-circle"></i> Como Usar
+        </button>
+        <button class="button" id="loadButton" onclick="toggleCarregamento()" style="display: none;">
+            <i class="fas fa-times"></i> Cancelar Carregamento
+        </button>
+        <button class="button" id="reloadButton" onclick="recarregarDados()" style="display: none;">
+            <i class="fas fa-sync-alt"></i> Recarregar Dados
+        </button>
     </div>
 
-    <div id="loadingMessage" class="loading" style="display: none;">Carregando Resultados e Alterando...</div>
+    <div id="errorMessage" class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> <span id="errorText"></span>
+    </div>
+
+    <div id="warningMessage" class="warning-message">
+        <i class="fas fa-info-circle"></i> <span id="warningText"></span>
+    </div>
+
+    <div id="loadingMessage" class="loading" style="display: none;">
+        <div class="loading-spinner"></div> Carregando Resultados e Aplicando Ajustes Personalizados...
+    </div>
+    
     <hr />
-    <div id="completedMessage" class="completed" style="display: none;">Carregamento concluído!</div>
+    
+    <div id="completedMessage" class="completed" style="display: none;">
+        <i class="fas fa-check-circle"></i> Carregamento concluído!
+    </div>
+
     <div id="concursoInfo" class="concurso-info" style="display: none;"></div>
 
     <div class="table-container">
@@ -338,12 +766,14 @@
             <thead>
                 <tr>
                     <th>Concurso</th>
-                    <th>Data do Sorteio</th>
-                    <th>Dezenas Sorteadas</th>
-                    <th>Dezenas Sorteadas (+1)</th>
-                    <th>Dezenas Sorteadas (+2)</th>
-                    <th>Dezenas Sorteadas (-1)</th>
-                    <th>Dezenas Sorteadas (-2)</th>
+                    <th>Data</th>
+                    <th>Dezenas Originais</th>
+                    <th id="headerAjuste1">Ajuste (+1) <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Números ajustados conforme configuração</span></span></th>
+                    <th id="headerAjuste2">Ajuste (+2) <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Números ajustados conforme configuração</span></span></th>
+                    <th id="headerAjuste3">Ajuste (-1) <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Números ajustados conforme configuração</span></span></th>
+                    <th id="headerAjuste4">Ajuste (-2) <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Números ajustados conforme configuração</span></span></th>
+                    <th id="headerAjuste5" style="display: none;">Ajuste (-3) <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Números ajustados conforme configuração</span></span></th>
+                    <th id="headerAjuste6" style="display: none;">Ajuste (+3) <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Números ajustados conforme configuração</span></span></th>
                 </tr>
             </thead>
             <tbody>
@@ -351,125 +781,939 @@
         </table>
     </div>
 
+    <!-- Controles de Paginação -->
+    <div class="pagination-container" id="paginationContainer" style="display: none;">
+        <div class="pagination-info">
+            <span id="paginationInfo">Página 1 de 1 (0 resultados)</span>
+        </div>
+        <div class="pagination-controls">
+            <button class="button" id="firstPageBtn" onclick="goToPage(1)">
+                <i class="fas fa-angle-double-left"></i> Primeira
+            </button>
+            <button class="button" id="prevPageBtn" onclick="previousPage()">
+                <i class="fas fa-angle-left"></i> Anterior
+            </button>
+            <span class="page-numbers" id="pageNumbers"></span>
+            <button class="button" id="nextPageBtn" onclick="nextPage()">
+                Próxima <i class="fas fa-angle-right"></i>
+            </button>
+            <button class="button" id="lastPageBtn" onclick="goToPage(totalPages)">
+                Última <i class="fas fa-angle-double-right"></i>
+            </button>
+        </div>
+    </div>
+
     <!-- Botões de Download -->
     <div class="download-buttons">
-        <button class="button" onclick="downloadCSV()">Baixar CSV</button>
-        <button class="button" onclick="downloadJSON()">Baixar JSON</button>
-        <button class="button" onclick="downloadTXT()">Baixar TXT</button>
-        <button class="button" onclick="downloadXML()">Baixar XML</button>
+        <button class="button" onclick="downloadCSV()">
+            <i class="fas fa-file-csv"></i> Baixar CSV
+        </button>
+        <button class="button" onclick="downloadJSON()">
+            <i class="fas fa-file-code"></i> Baixar JSON
+        </button>
+        <button class="button" onclick="downloadTXT()">
+            <i class="fas fa-file-alt"></i> Baixar TXT
+        </button>
+        <button class="button" onclick="downloadXML()">
+            <i class="fas fa-file-code"></i> Baixar XML
+        </button>
     </div>
 </div>
 
-<footer>Feito por: <i>Márcio Fernando Maia - Todos os direitos reservados - 2025</i></footer>
+<footer>
+    <div>Feito por: <i>Márcio Fernando Maia - Todos os direitos reservados - 2025</i></div>
+</footer>
+
+<!-- Modal de Ajuda e Explicações -->
+<div id="helpModal" class="help-modal" style="display: none;">
+    <div class="help-modal-content">
+        <div class="help-modal-header">
+            <h2><i class="fas fa-question-circle"></i> Como Usar a Aplicação</h2>
+            <button class="help-close-btn" onclick="closeHelpModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="help-modal-body">
+            <div class="help-section">
+                <h3><i class="fas fa-clipboard-list"></i> O QUE FOI FEITO:</h3>
+                
+                <div class="help-comparison">
+                    <div class="help-before">
+                        <h4><i class="fas fa-wrench"></i> ANTES (Original):</h4>
+                        <ul>
+                            <li>Carregava resultados da Mega-Sena</li>
+                            <li>Aplicava automaticamente <strong>4 ajustes fixos</strong>: +1, +2, -1, -2</li>
+                            <li>Não tinha opção de personalizar os valores</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="help-after">
+                        <h4><i class="fas fa-bolt"></i> AGORA (Modificado):</h4>
+                        <ul>
+                            <li>Carrega os mesmos resultados da Mega-Sena</li>
+                            <li><strong>VOCÊ ESCOLHE</strong> quantos ajustes quer (2 até 6)</li>
+                            <li><strong>VOCÊ ESCOLHE</strong> o valor de cada ajuste (-10 até +10)</li>
+                            <li>Interface totalmente personalizável</li>
+                            <li>Presets prontos para facilitar o uso</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="help-section">
+                <h3><i class="fas fa-crosshairs"></i> COMO USAR A APLICAÇÃO:</h3>
+                
+                <div class="help-steps">
+                    <div class="help-step">
+                        <div class="help-step-number">1</div>
+                        <div class="help-step-content">
+                            <h4>CONFIGURAR OS AJUSTES:</h4>
+                            <div class="help-substeps">
+                                <div class="help-substep">
+                                    <strong><i class="fas fa-sort-numeric-up"></i> Escolher Quantidade:</strong>
+                                    <ul>
+                                        <li>No primeiro dropdown "Quantidade de Ajustes"</li>
+                                        <li>Selecione: 2, 3, 4, 5 ou 6 ajustes</li>
+                                        <li>A tabela irá mostrar/esconder colunas automaticamente</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="help-substep">
+                                    <strong><i class="fas fa-sliders-h"></i> Definir Valores dos Ajustes:</strong>
+                                    <ul>
+                                        <li>Em cada dropdown "Ajuste 1", "Ajuste 2", etc.</li>
+                                        <li>Escolha valores de <strong>-10 até +10</strong></li>
+                                        <li>Exemplos:</li>
+                                        <ul>
+                                            <li><span class="help-highlight">+1</span> = soma 1 em cada número</li>
+                                            <li><span class="help-highlight">-2</span> = subtrai 2 de cada número</li>
+                                            <li><span class="help-highlight">0</span> = mantém os números originais</li>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="help-step">
+                        <div class="help-step-number">2</div>
+                        <div class="help-step-content">
+                            <h4>USAR OS PRESETS:</h4>
+                            <div class="help-presets">
+                                <div class="help-preset">
+                                    <strong><i class="fas fa-undo"></i> Resetar Padrão:</strong>
+                                    <span>Volta para: +1, +2, -1, -2 (original)</span>
+                                </div>
+                                <div class="help-preset">
+                                    <strong><i class="fas fa-dice"></i> Ajustes Aleatórios:</strong>
+                                    <span>Gera valores aleatórios entre -10 e +10</span>
+                                </div>
+                                <div class="help-preset">
+                                    <strong><i class="fas fa-sort-numeric-up"></i> Preset Sequencial:</strong>
+                                    <span>Aplica: +1, +2, +3, +4, +5, +6</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="help-step">
+                        <div class="help-step-number">3</div>
+                        <div class="help-step-content">
+                            <h4>CARREGAR OS DADOS:</h4>
+                            <ul>
+                                <li>O carregamento acontece <strong>automaticamente</strong></li>
+                                <li>A aplicação busca TODOS os concursos da API</li>
+                                <li>Aplica seus ajustes personalizados automaticamente</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="help-section">
+                <h3><i class="fas fa-lightbulb"></i> EXEMPLOS PRÁTICOS:</h3>
+                
+                <div class="help-examples">
+                    <div class="help-example">
+                        <h4><i class="fas fa-chart-line"></i> Exemplo 1 - Ajustes Pequenos:</h4>
+                        <div class="help-example-content">
+                            <div class="help-config">
+                                <strong>Configuração:</strong> 3 ajustes<br>
+                                <strong>Ajuste 1:</strong> +1 | <strong>Ajuste 2:</strong> +3 | <strong>Ajuste 3:</strong> -1
+                            </div>
+                            <div class="help-result">
+                                <div>Resultado Original: <span class="help-numbers">08, 15, 22, 35, 41, 55</span></div>
+                                <div>Ajuste +1: <span class="help-numbers-adj">09, 16, 23, 36, 42, 56</span></div>
+                                <div>Ajuste +3: <span class="help-numbers-adj">11, 18, 25, 38, 44, 58</span></div>
+                                <div>Ajuste -1: <span class="help-numbers-adj">07, 14, 21, 34, 40, 54</span></div>
+                                <div class="help-note">*Limitado entre 01-60 (limites da Mega-Sena)</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="help-example">
+                        <h4><i class="fas fa-chart-area"></i> Exemplo 2 - Ajustes Grandes:</h4>
+                        <div class="help-example-content">
+                            <div class="help-config">
+                                <strong>Configuração:</strong> 2 ajustes<br>
+                                <strong>Ajuste 1:</strong> +5 | <strong>Ajuste 2:</strong> -8
+                            </div>
+                            <div class="help-result">
+                                <div>Resultado Original: <span class="help-numbers">10, 15, 20, 25, 30, 35</span></div>
+                                <div>Ajuste +5: <span class="help-numbers-adj">15, 20, 25, 30, 35, 40</span></div>
+                                <div>Ajuste -8: <span class="help-numbers-adj">02, 07, 12, 17, 22, 27</span></div>
+                                <div class="help-note">*Números que passariam de 60 ficam em 60<br>*Números que ficariam abaixo de 01 ficam em 01</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="help-section">
+                <h3><i class="fas fa-info-circle"></i> INFORMAÇÕES IMPORTANTES:</h3>
+                
+                <div class="help-important">
+                    <div class="help-limit">
+                        <strong><i class="fas fa-exclamation-triangle"></i> Limites da Mega-Sena:</strong>
+                        <ul>
+                            <li><strong>Mínimo:</strong> 01 (se calcular menos que 1, fica 1)</li>
+                            <li><strong>Máximo:</strong> 60 (se calcular mais que 60, fica 60)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="help-features">
+                        <strong><i class="fas fa-cogs"></i> Funcionalidades:</strong>
+                        <ul>
+                            <li>✅ Carregamento automático</li>
+                            <li>✅ Ajustes personalizáveis em tempo real</li>
+                            <li>✅ Downloads personalizados (CSV, JSON, TXT, XML)</li>
+                            <li>✅ Interface responsiva para mobile</li>
+                            <li>✅ Paginação inteligente</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="help-section">
+                <h3><i class="fas fa-rocket"></i> FLUXO DE USO RECOMENDADO:</h3>
+                
+                <div class="help-flow">
+                    <div class="help-flow-step">1. <strong>Configure</strong> os ajustes que deseja</div>
+                    <div class="help-flow-arrow">⬇️</div>
+                    <div class="help-flow-step">2. <strong>Aguarde</strong> o carregamento automático</div>
+                    <div class="help-flow-arrow">⬇️</div>
+                    <div class="help-flow-step">3. <strong>Analise</strong> os resultados na tabela</div>
+                    <div class="help-flow-arrow">⬇️</div>
+                    <div class="help-flow-step">4. <strong>Ajuste</strong> as configurações se necessário</div>
+                    <div class="help-flow-arrow">⬇️</div>
+                    <div class="help-flow-step">5. <strong>Baixe</strong> os dados no formato desejado</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="help-modal-footer">
+            <button class="button" onclick="closeHelpModal()">
+                <i class="fas fa-check"></i> Entendi, Vamos Começar!
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Estilos do Modal de Ajuda */
+.help-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+.help-modal-content {
+    background: linear-gradient(135deg, #e9fbf4, #d4f7e9);
+    border: 3px solid var(--primary-color);
+    border-radius: 15px;
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(27, 154, 103, 0.4);
+    animation: slideInUp 0.4s ease;
+}
+
+.help-modal-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 20px 30px;
+    border-radius: 12px 12px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.help-modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
+
+.help-close-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.help-close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.help-modal-body {
+    padding: 30px;
+    color: var(--text-color);
+}
+
+.help-section {
+    margin-bottom: 30px;
+}
+
+.help-section h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.help-comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.help-before,
+.help-after {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--table-border);
+}
+
+.help-before h4 {
+    color: #8b5cf6;
+    margin-bottom: 15px;
+}
+
+.help-after h4 {
+    color: #059669;
+    margin-bottom: 15px;
+}
+
+.help-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.help-step {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.help-step-number {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(27, 154, 103, 0.4);
+}
+
+.help-step-content {
+    flex: 1;
+}
+
+.help-step-content h4 {
+    color: var(--primary-dark);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.help-substeps {
+    margin-left: 15px;
+}
+
+.help-substep {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.help-presets {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.help-preset {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--table-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.help-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.help-example {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--table-border);
+}
+
+.help-example h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.help-example-content {
+    margin-top: 15px;
+}
+
+.help-config {
+    background: linear-gradient(135deg, #93ecc8, #26d991);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.help-result {
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.help-numbers {
+    background: var(--primary-color);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.help-numbers-adj {
+    background: var(--accent-color);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.help-note {
+    font-size: 0.75rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.help-highlight {
+    background: var(--secondary-color);
+    color: var(--text-color);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.help-important {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.help-limit,
+.help-features {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--table-border);
+}
+
+.help-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.help-flow-step {
+    background: white;
+    padding: 15px 25px;
+    border-radius: 25px;
+    border: 2px solid var(--secondary-color);
+    font-weight: 600;
+    text-align: center;
+    min-width: 300px;
+    box-shadow: 0 4px 12px rgba(27, 154, 103, 0.2);
+}
+
+.help-flow-arrow {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.help-modal-footer {
+    background: linear-gradient(135deg, #d4f7e9, #e9fbf4);
+    padding: 20px 30px;
+    border-radius: 0 0 12px 12px;
+    text-align: center;
+    border-top: 1px solid var(--table-border);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from { 
+        opacity: 0; 
+        transform: translateY(50px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
+}
+
+/* Responsividade do Modal */
+@media (max-width: 768px) {
+    .help-modal {
+        padding: 10px;
+    }
+    
+    .help-modal-content {
+        max-height: 95vh;
+    }
+    
+    .help-modal-header {
+        padding: 15px 20px;
+    }
+    
+    .help-modal-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .help-modal-body {
+        padding: 20px;
+    }
+    
+    .help-comparison {
+        grid-template-columns: 1fr;
+    }
+    
+    .help-important {
+        grid-template-columns: 1fr;
+    }
+    
+    .help-step {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .help-preset {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .help-flow-step {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .help-modal-header h2 {
+        font-size: 1rem;
+    }
+    
+    .help-modal-body {
+        padding: 15px;
+    }
+    
+    .help-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .help-step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+}
+</style>
 
 <script>
 let allResults = [];
+let currentPage = 1;
+const RESULTS_PER_PAGE = 20;
+let totalPages = 0;
+let isLoading = false;
+let cancelarCarregamento = false;
 
-async function fetchAllMegaSenaResults() {
-    const baseUrl = 'https://loteriascaixa-api.herokuapp.com/api/megasena';
-    const loadingMessage = document.getElementById('loadingMessage');
-    const completedMessage = document.getElementById('completedMessage');
-    const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
+// =================== FUNÇÕES DE CONTROLE DE AJUSTES ===================
 
-    loadingMessage.style.display = 'block';
-    completedMessage.style.display = 'none';
-    tableBody.innerHTML = '';
-    allResults = [];
-
-    try {
-        const response = await fetch(baseUrl);
-        if (!response.ok) throw new Error('Erro ao acessar a API.');
-
-        const data = await response.json();
-
-        if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0].dezenas)) {
-            allResults = data.map(item => ({
-                concurso: item.concurso,
-                data: item.data,
-                dezenas: item.dezenas,
-                dezenasPlus1: adjustDezenas(item.dezenas, 1),
-                dezenasPlus2: adjustDezenas(item.dezenas, 2),
-                dezenasMinus1: adjustDezenas(item.dezenas, -1),
-                dezenasMinus2: adjustDezenas(item.dezenas, -2)
-            }));
-
-            renderResults(allResults);
-            showConcursoInfo(allResults);
+function updateAjustes() {
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+    
+    // Mostrar/esconder controles de ajuste
+    for (let i = 1; i <= 6; i++) {
+        const controle = document.getElementById(`controleAjuste${i}`);
+        const header = document.getElementById(`headerAjuste${i}`);
+        
+        if (i <= quantidade) {
+            if (controle) controle.style.display = 'block';
+            if (header) header.style.display = 'table-cell';
         } else {
-            throw new Error('Formato de dados inválido.');
+            if (controle) controle.style.display = 'none';
+            if (header) header.style.display = 'none';
         }
-    } catch (error) {
-        console.error(error);
-        alert('Erro ao buscar os Resultados Alterados.');
-    } finally {
-        loadingMessage.style.display = 'none';
-        completedMessage.style.display = 'block';
+    }
+    
+    updateHeaderLabels();
+    updateTable();
+}
+
+function updateHeaderLabels() {
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+    
+    for (let i = 1; i <= quantidade; i++) {
+        const select = document.getElementById(`ajuste${i}`);
+        const header = document.getElementById(`headerAjuste${i}`);
+        
+        if (select && header) {
+            const valor = parseInt(select.value);
+            const simbolo = valor >= 0 ? '+' : '';
+            header.innerHTML = `Ajuste (${simbolo}${valor}) <span class="tooltip"><i class="fas fa-info-circle"></i><span class="tooltiptext">Números ajustados em ${simbolo}${valor}</span></span>`;
+        }
+    }
+}
+
+function updateTable() {
+    updateHeaderLabels();
+    if (allResults.length > 0) {
+        // Recalcular ajustes para todos os resultados
+        allResults.forEach(result => {
+            calculateAdjustments(result);
+        });
+        renderCurrentPage();
+    }
+}
+
+function calculateAdjustments(result) {
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+    const dezenas = result.dezenas.map(d => parseInt(d));
+    
+    // Limpar ajustes anteriores
+    for (let i = 1; i <= 6; i++) {
+        delete result[`ajuste${i}`];
+    }
+    
+    // Calcular novos ajustes baseados na configuração atual
+    for (let i = 1; i <= quantidade; i++) {
+        const select = document.getElementById(`ajuste${i}`);
+        if (select) {
+            const ajuste = parseInt(select.value);
+            result[`ajuste${i}`] = adjustDezenas(dezenas, ajuste);
+        }
     }
 }
 
 function adjustDezenas(dezenas, adjustment) {
     return dezenas.map(num => {
         let adjustedNum = parseInt(num) + adjustment;
+        // Garantir que sempre fique entre 1 e 60 (limites da Mega-Sena)
         if (adjustedNum < 1) adjustedNum = 1;
         if (adjustedNum > 60) adjustedNum = 60;
         return adjustedNum.toString().padStart(2, '0');
     });
 }
 
-function renderResults(results) {
-    const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
-    tableBody.innerHTML = '';
+function resetarAjustes() {
+    document.getElementById('quantidadeAjustes').value = '4';
+    document.getElementById('ajuste1').value = '1';
+    document.getElementById('ajuste2').value = '2';
+    document.getElementById('ajuste3').value = '-1';
+    document.getElementById('ajuste4').value = '-2';
+    document.getElementById('ajuste5').value = '-3';
+    document.getElementById('ajuste6').value = '3';
+    
+    updateAjustes();
+    showNotification('✅ Ajustes resetados para o padrão (+1, +2, -1, -2)', 'success');
+}
 
-    results.forEach(result => {
-        const row = tableBody.insertRow();
-        row.innerHTML = `
-            <td>${result.concurso}</td>
-            <td>${result.data}</td>
-            <td>${result.dezenas.join(' - ')}</td>
-            <td>${result.dezenasPlus1.join(' - ')}</td>
-            <td>${result.dezenasPlus2.join(' - ')}</td>
-            <td>${result.dezenasMinus1.join(' - ')}</td>
-            <td>${result.dezenasMinus2.join(' - ')}</td>
+function ajustesAleatorios() {
+    const valores = [-10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+    
+    for (let i = 1; i <= quantidade; i++) {
+        const select = document.getElementById(`ajuste${i}`);
+        if (select) {
+            const valorAleatorio = valores[Math.floor(Math.random() * valores.length)];
+            select.value = valorAleatorio.toString();
+        }
+    }
+    
+    updateAjustes();
+    showNotification('🎲 Ajustes aleatórios aplicados!', 'info');
+}
+
+function presetSequencial() {
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+    
+    document.getElementById('ajuste1').value = '1';
+    document.getElementById('ajuste2').value = '2';
+    document.getElementById('ajuste3').value = '3';
+    document.getElementById('ajuste4').value = '4';
+    if (quantidade >= 5) document.getElementById('ajuste5').value = '5';
+    if (quantidade >= 6) document.getElementById('ajuste6').value = '6';
+    
+    updateAjustes();
+    showNotification('📈 Preset sequencial aplicado (+1, +2, +3, +4, +5, +6)', 'success');
+}
+
+function showNotification(message, type = 'info') {
+    // Criar elemento de notificação
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #22c55e, #16a34a)' : 
+                     type === 'error' ? 'linear-gradient(135deg, #ef4444, #dc2626)' : 
+                     'linear-gradient(135deg, #1b9a67, #26d991)'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+        z-index: 10000;
+        font-weight: 600;
+        animation: slideInRight 0.3s ease;
+        max-width: 300px;
+    `;
+    notification.textContent = message;
+    
+    // Adicionar CSS da animação se não existir
+    if (!document.getElementById('notification-style')) {
+        const style = document.createElement('style');
+        style.id = 'notification-style';
+        style.textContent = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
         `;
-    });
+        document.head.appendChild(style);
+    }
+    
+    document.body.appendChild(notification);
+    
+    // Remover após 4 segundos
+    setTimeout(() => {
+        notification.remove();
+    }, 4000);
 }
 
-// Funções para download
-function downloadCSV() {
-    let csvContent = "Concurso,Data,Dezenas,+1,+2,-1,-2\n";
-    allResults.forEach(result => {
-        csvContent += `${result.concurso},${result.data},"${result.dezenas.join('-')}","${result.dezenasPlus1.join('-')}","${result.dezenasPlus2.join('-')}","${result.dezenasMinus1.join('-')}","${result.dezenasMinus2.join('-')}"\n`;
-    });
-    downloadFile(csvContent, 'mega_sena.csv', 'text/csv');
+// =================== FUNÇÕES DE CONTROLE DE CARREGAMENTO ===================
+
+function toggleCarregamento() {
+    if (isLoading) {
+        // Cancelar carregamento
+        cancelarCarregamento = true;
+        showNotification('🛑 Carregamento cancelado pelo usuário', 'info');
+        console.log('Carregamento cancelado pelo usuário');
+        
+        // Reset UI
+        resetLoadingState();
+    }
 }
 
-function downloadJSON() {
-    const jsonContent = JSON.stringify(allResults, null, 2);
-    downloadFile(jsonContent, 'mega_sena.json', 'application/json');
+function recarregarDados() {
+    // Reset estado e iniciar novo carregamento
+    cancelarCarregamento = false;
+    fetchAllMegaSenaResults();
 }
 
-function downloadTXT() {
-    let txtContent = "Resultados Alterados da Mega-Sena:\n\n";
-    allResults.forEach(result => {
-        txtContent += `Concurso: ${result.concurso} | Data: ${result.data} | Dezenas: ${result.dezenas.join('-')} | (+1): ${result.dezenasPlus1.join('-')} | (+2): ${result.dezenasPlus2.join('-')} | (-1): ${result.dezenasMinus1.join('-')} | (-2): ${result.dezenasMinus2.join('-')}\n`;
-    });
-    downloadFile(txtContent, 'mega_sena.txt', 'text/plain');
+function resetLoadingState() {
+    isLoading = false;
+    cancelarCarregamento = false;
+    
+    const loadingMessage = document.getElementById('loadingMessage');
+    const loadButton = document.getElementById('loadButton');
+    const reloadButton = document.getElementById('reloadButton');
+    
+    loadingMessage.style.display = 'none';
+    loadButton.style.display = 'none';
+    reloadButton.style.display = 'inline-block';
 }
 
-function downloadXML() {
-    let xmlContent = '<?xml version="1.0" encoding="UTF-8"?><Resultados Alterados>';
-    allResults.forEach(result => {
-        xmlContent += `<concurso><numero>${result.concurso}</numero><data>${result.data}</data></concurso>`;
-    });
-    xmlContent += '</Resultados Alterados>';
-    downloadFile(xmlContent, 'mega_sena.xml', 'text/xml');
+function updateButtonStates() {
+    const loadButton = document.getElementById('loadButton');
+    const reloadButton = document.getElementById('reloadButton');
+    
+    if (isLoading) {
+        loadButton.style.display = 'inline-block';
+        loadButton.disabled = false;
+        reloadButton.style.display = 'none';
+    } else {
+        loadButton.style.display = 'none';
+        reloadButton.style.display = allResults.length > 0 ? 'inline-block' : 'none';
+    }
+}
+
+function iniciarCarregamentoAutomatico() {
+    console.log('🚀 Iniciando carregamento automático da Mega-Sena...');
+    
+    // Aguardar um pequeno delay para garantir que a UI está pronta
+    setTimeout(() => {
+        if (!isLoading && allResults.length === 0) {
+            fetchAllMegaSenaResults();
+        }
+    }, 1000);
+}
+
+// =================== FUNÇÃO PRINCIPAL ===================
+
+async function fetchAllMegaSenaResults() {
+    if (isLoading) return;
+    
+    const baseUrl = 'https://loteriascaixa-api.herokuapp.com/api/megasena';
+    const loadingMessage = document.getElementById('loadingMessage');
+    const completedMessage = document.getElementById('completedMessage');
+    const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
+
+    isLoading = true;
+    cancelarCarregamento = false;
+    loadingMessage.style.display = 'block';
+    completedMessage.style.display = 'none';
+    tableBody.innerHTML = '';
+    allResults = [];
+    currentPage = 1;
+
+    // Atualizar estado dos botões
+    updateButtonStates();
+
+    try {
+        console.log('Iniciando busca de todos os resultados da Mega-Sena...');
+        
+        if (cancelarCarregamento) {
+            console.log('Carregamento cancelado durante fetch');
+            return;
+        }
+
+        const response = await fetch(baseUrl);
+        
+        if (cancelarCarregamento) {
+            console.log('Carregamento cancelado após fetch');
+            return;
+        }
+
+        if (!response.ok) throw new Error('Erro ao acessar a API.');
+
+        const data = await response.json();
+
+        if (cancelarCarregamento) {
+            console.log('Carregamento cancelado após receber dados');
+            return;
+        }
+
+        if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0].dezenas)) {
+            allResults = data.map(item => ({
+                concurso: item.concurso,
+                data: item.data,
+                dezenas: item.dezenas
+            }));
+
+            // Calcular ajustes para todos os resultados
+            allResults.forEach(result => {
+                calculateAdjustments(result);
+            });
+
+            if (cancelarCarregamento) {
+                console.log('Carregamento cancelado durante processamento');
+                return;
+            }
+
+            setupPagination();
+            renderCurrentPage();
+            showConcursoInfo(allResults);
+            
+            showNotification(`✅ ${allResults.length} concursos da Mega-Sena carregados com sucesso!`);
+        } else {
+            throw new Error('Formato de dados inválido.');
+        }
+    } catch (error) {
+        console.error(error);
+        if (!cancelarCarregamento) {
+            showError('Erro ao buscar os Resultados Alterados.');
+        }
+    } finally {
+        if (!cancelarCarregamento) {
+            isLoading = false;
+            loadingMessage.style.display = 'none';
+            completedMessage.style.display = 'block';
+            updateButtonStates();
+        }
+    }
 }
 
 function showConcursoInfo(results) {
     const concursoInfo = document.getElementById('concursoInfo');
     
     if (results.length > 0) {
-        // Ordena por número do concurso para pegar o primeiro e último
         const sortedResults = [...results].sort((a, b) => parseInt(a.concurso) - parseInt(b.concurso));
         const primeiroConcurso = sortedResults[0];
         const ultimoConcurso = sortedResults[sortedResults.length - 1];
@@ -491,13 +1735,310 @@ function showConcursoInfo(results) {
     }
 }
 
+function showError(message) {
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+    errorText.textContent = message;
+    errorMessage.style.display = 'block';
+    setTimeout(() => {
+        errorMessage.style.display = 'none';
+    }, 8000);
+}
+
+// Funções de Paginação
+function setupPagination() {
+    totalPages = Math.ceil(allResults.length / RESULTS_PER_PAGE);
+    currentPage = 1;
+    
+    const paginationContainer = document.getElementById('paginationContainer');
+    paginationContainer.style.display = totalPages > 1 ? 'block' : 'none';
+    
+    updatePaginationControls();
+}
+
+function renderCurrentPage() {
+    const startIndex = (currentPage - 1) * RESULTS_PER_PAGE;
+    const endIndex = startIndex + RESULTS_PER_PAGE;
+    const currentResults = allResults.slice(startIndex, endIndex);
+    
+    const tableBody = document.getElementById('megaSenaResults').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = '';
+
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+
+    currentResults.forEach(result => {
+        const row = tableBody.insertRow();
+        
+        const formatDezenas = (dezenas) => {
+            return dezenas.map(d => `<span class="dezena">${d}</span>`).join(' ');
+        };
+        
+        let htmlRow = `
+            <td>${result.concurso}</td>
+            <td>${result.data}</td>
+            <td>${formatDezenas(result.dezenas)}</td>
+        `;
+        
+        // Adicionar colunas de ajustes baseadas na quantidade selecionada
+        for (let i = 1; i <= quantidade; i++) {
+            const ajuste = result[`ajuste${i}`];
+            if (ajuste) {
+                htmlRow += `<td>${formatDezenas(ajuste)}</td>`;
+            } else {
+                htmlRow += `<td>-</td>`;
+            }
+        }
+        
+        // Esconder colunas extras
+        for (let i = quantidade + 1; i <= 6; i++) {
+            htmlRow += `<td style="display: none;">-</td>`;
+        }
+        
+        row.innerHTML = htmlRow;
+    });
+    
+    updatePaginationInfo();
+    scrollToTop();
+}
+
+function updatePaginationControls() {
+    const firstBtn = document.getElementById('firstPageBtn');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    const lastBtn = document.getElementById('lastPageBtn');
+    
+    firstBtn.disabled = currentPage === 1;
+    prevBtn.disabled = currentPage === 1;
+    nextBtn.disabled = currentPage === totalPages;
+    lastBtn.disabled = currentPage === totalPages;
+    
+    generatePageNumbers();
+}
+
+function generatePageNumbers() {
+    const pageNumbers = document.getElementById('pageNumbers');
+    pageNumbers.innerHTML = '';
+    
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.className = `button ${i === currentPage ? 'active' : ''}`;
+        pageBtn.textContent = i;
+        pageBtn.onclick = () => goToPage(i);
+        
+        if (i === currentPage) {
+            pageBtn.style.backgroundColor = 'var(--primary-dark)';
+            pageBtn.style.transform = 'none';
+        }
+        
+        pageNumbers.appendChild(pageBtn);
+    }
+}
+
+function updatePaginationInfo() {
+    const startResult = (currentPage - 1) * RESULTS_PER_PAGE + 1;
+    const endResult = Math.min(currentPage * RESULTS_PER_PAGE, allResults.length);
+    
+    const paginationInfo = document.getElementById('paginationInfo');
+    paginationInfo.textContent = `Página ${currentPage} de ${totalPages} (${startResult}-${endResult} de ${allResults.length} resultados)`;
+}
+
+function goToPage(page) {
+    if (page >= 1 && page <= totalPages && page !== currentPage) {
+        currentPage = page;
+        renderCurrentPage();
+        updatePaginationControls();
+    }
+}
+
+function nextPage() {
+    if (currentPage < totalPages) {
+        goToPage(currentPage + 1);
+    }
+}
+
+function previousPage() {
+    if (currentPage > 1) {
+        goToPage(currentPage - 1);
+    }
+}
+
+function scrollToTop() {
+    const tableContainer = document.querySelector('.table-container');
+    tableContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Funções para download
+function downloadCSV() {
+    if (allResults.length === 0) {
+        showError('Nenhum resultado disponível para download. Por favor, carregue os resultados primeiro.');
+        return;
+    }
+
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+    
+    let csvHeader = 'Concurso,Data,Dezenas Originais';
+    for (let i = 1; i <= quantidade; i++) {
+        const select = document.getElementById(`ajuste${i}`);
+        const valor = select ? select.value : '0';
+        csvHeader += `,Ajuste ${valor}`;
+    }
+    csvHeader += '\n';
+    
+    let csvContent = csvHeader;
+    allResults.forEach(result => {
+        let linha = `${result.concurso},"${result.data}","${result.dezenas.join('-')}"`;
+        
+        for (let i = 1; i <= quantidade; i++) {
+            const ajuste = result[`ajuste${i}`];
+            linha += `,"${ajuste ? ajuste.join('-') : ''}"`;
+        }
+        
+        csvContent += linha + '\n';
+    });
+    
+    downloadFile(csvContent, 'mega_sena_ajustes_personalizados.csv', 'text/csv');
+}
+
+function downloadJSON() {
+    if (allResults.length === 0) {
+        showError('Nenhum resultado disponível para download. Por favor, carregue os resultados primeiro.');
+        return;
+    }
+
+    const jsonContent = JSON.stringify(allResults, null, 2);
+    downloadFile(jsonContent, 'mega_sena_ajustes_personalizados.json', 'application/json');
+}
+
+function downloadTXT() {
+    if (allResults.length === 0) {
+        showError('Nenhum resultado disponível para download. Por favor, carregue os resultados primeiro.');
+        return;
+    }
+
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+    
+    let txtContent = "Resultados Alterados da Mega-Sena com Ajustes Personalizados:\n\n";
+    allResults.forEach(result => {
+        txtContent += `Concurso: ${result.concurso} | Data: ${result.data} | Dezenas: ${result.dezenas.join('-')}`;
+        
+        for (let i = 1; i <= quantidade; i++) {
+            const select = document.getElementById(`ajuste${i}`);
+            const valor = select ? select.value : '0';
+            const ajuste = result[`ajuste${i}`];
+            if (ajuste) {
+                txtContent += ` | Ajuste ${valor}: ${ajuste.join('-')}`;
+            }
+        }
+        
+        txtContent += '\n';
+    });
+    downloadFile(txtContent, 'mega_sena_ajustes_personalizados.txt', 'text/plain');
+}
+
+function downloadXML() {
+    if (allResults.length === 0) {
+        showError('Nenhum resultado disponível para download. Por favor, carregue os resultados primeiro.');
+        return;
+    }
+
+    const quantidade = parseInt(document.getElementById('quantidadeAjustes').value);
+
+    let xmlContent = '<?xml version="1.0" encoding="UTF-8"?>\n<ResultadosAlteradosPersonalizados>\n';
+    allResults.forEach(result => {
+        xmlContent += `  <concurso>\n`;
+        xmlContent += `    <numero>${result.concurso}</numero>\n`;
+        xmlContent += `    <data>${result.data}</data>\n`;
+        xmlContent += `    <dezenas>${result.dezenas.join(',')}</dezenas>\n`;
+        
+        for (let i = 1; i <= quantidade; i++) {
+            const select = document.getElementById(`ajuste${i}`);
+            const valor = select ? select.value : '0';
+            const ajuste = result[`ajuste${i}`];
+            if (ajuste) {
+                xmlContent += `    <ajuste${i} valor="${valor}">${ajuste.join(',')}</ajuste${i}>\n`;
+            }
+        }
+        
+        xmlContent += `  </concurso>\n`;
+    });
+    xmlContent += '</ResultadosAlteradosPersonalizados>';
+    downloadFile(xmlContent, 'mega_sena_ajustes_personalizados.xml', 'text/xml');
+}
+
 function downloadFile(content, fileName, type) {
     const blob = new Blob([content], { type });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = fileName;
     link.click();
+    
+    setTimeout(() => {
+        URL.revokeObjectURL(link.href);
+    }, 100);
 }
+
+// =================== FUNÇÕES DO MODAL DE AJUDA ===================
+
+function openHelpModal() {
+    const modal = document.getElementById('helpModal');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // Prevenir scroll da página
+}
+
+function closeHelpModal() {
+    const modal = document.getElementById('helpModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restaurar scroll da página
+}
+
+// Fechar modal clicando fora dele
+document.addEventListener('click', (event) => {
+    const modal = document.getElementById('helpModal');
+    if (event.target === modal) {
+        closeHelpModal();
+    }
+});
+
+// Fechar modal com tecla ESC
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('helpModal');
+        if (modal.style.display === 'flex') {
+            closeHelpModal();
+        }
+    }
+});
+
+// Inicialização
+window.addEventListener('load', () => {
+    console.log('Aplicação da Mega-Sena carregada com ajustes personalizáveis.');
+    
+    // Configurar estado inicial dos controles
+    updateAjustes();
+    
+    // Configurar modo escuro se necessário
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.classList.add('dark');
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        if (event.matches) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    });
+    
+    // Iniciar carregamento automático
+    iniciarCarregamentoAutomatico();
+});
 </script>
 
 </body>
